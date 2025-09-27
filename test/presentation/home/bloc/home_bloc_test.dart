@@ -6,10 +6,13 @@ void main() {
   group('home bloc test', () {
     blocTest<HomeBloc, HomeState>(
       'calculate sum event test',
+      // arrange
       build: () => HomeBloc(),
+      // act
       act: (bloc) {
         bloc.add(CalculateSumEvent(input: "1,1"));
       },
+      // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 2)],
     );
   });
