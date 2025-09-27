@@ -9,5 +9,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _setupEventListener();
   }
 
-  void _setupEventListener() {}
+  void _setupEventListener() {
+    on<CalculateSumEvent>(_onCalculateSumEvent);
+  }
+
+  void _onCalculateSumEvent(CalculateSumEvent event, Emitter<HomeState> emit) {}
 }
