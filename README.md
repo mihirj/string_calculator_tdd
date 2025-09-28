@@ -1,6 +1,6 @@
-# string_calculator_tdd
+# String calculator TDD
 
-String calculator TDD Kata. This project converts string input into numbers and performs addition. It supports custom delimiters, handles negative numbers. The main goal of this project is to demonstrates Test-Driven Development (TDD) principles using Flutter. It includes unit tests, golden tests with Alchemist, and integration tests with Patrol.
+This project converts string input into numbers and performs addition. It supports custom delimiters, handles negative numbers. The main goal of this project is to demonstrates Test-Driven Development (TDD) principles using Flutter. It includes unit tests, golden tests with Alchemist, and integration tests with Patrol.
 
 ## Flutter version
 ```
@@ -54,6 +54,7 @@ visual changes during development.
    ```bash
    flutter test --update-goldens test/golden_test.dart  # Update golden files
    flutter test test/golden_test.dart                   # Run tests against existing golden files
+   flutter test                                         # Run all tests at once
    ```
 
 3. **Managing Golden Files**:
