@@ -1,8 +1,19 @@
+import 'package:alchemist/alchemist.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:string_calculator_tdd/presentation/home/bloc/home_bloc.dart';
 import 'package:string_calculator_tdd/presentation/home/home_page.dart';
 
+import '../../flutter_test_config.dart';
+import '../../test_helpers.dart';
+
+class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('Home page widget test', () {
     testWidgets('App bar test in home page', (tester) async {
       //arrange
@@ -92,5 +103,30 @@ void main() {
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.text('Calculate Sum'), findsOneWidget);
     });
+  });
+
+  // Golden test cases
+  testExecutable(() {
+    goldenTest(
+      'Home page UI test',
+      fileName: 'home_page',
+      builder: () {
+        //arrange
+        final homeBloc = MockHomeBloc();
+        when(() => homeBloc.state).thenReturn(HomeState.test());
+
+        // act, assert
+        return GoldenTestGroup(
+          columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
+          children: [
+            createTestScenario(
+              name: 'home_screen',
+              providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
+              child: const HomePage(),
+            ),
+          ],
+        );
+      },
+    );
   });
 }

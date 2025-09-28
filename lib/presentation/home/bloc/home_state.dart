@@ -14,6 +14,11 @@ class HomeState extends Equatable {
   factory HomeState.initial() {
     return const HomeState(calculatorResult: 0);
   }
+
+  @visibleForTesting
+  const HomeState.test({int? calculatorResult})
+    : calculatorResult = calculatorResult ?? 0;
+
   @override
   List<Object> get props => [calculatorResult];
 }
