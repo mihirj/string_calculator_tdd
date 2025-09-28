@@ -78,6 +78,27 @@ void main() {
     );
 
     blocTest<HomeBloc, HomeState>(
+      'sequence of test with valid and invalid inputs',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "3,4"));
+        bloc.add(AddEvent(input: "-1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(calculatorResult: 7, errorMessage: ''),
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1',
+        ),
+      ],
+    );
+
+    blocTest<HomeBloc, HomeState>(
       'multiple negative numbers error test',
       // arrange
       build: () => HomeBloc(),
