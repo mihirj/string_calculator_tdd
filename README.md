@@ -52,9 +52,9 @@ visual changes during development.
 
 2. **Running Tests**:
    ```bash
-flutter test --update-goldens test/golden_test.dart  # Update golden files
-flutter test test/golden_test.dart                   # Run single test
-flutter test                                         # Run all tests
+   flutter test --update-goldens test/golden_test.dart  # Update golden files
+   flutter test test/golden_test.dart                   # Run single test
+   flutter test                                         # Run all tests
    ```
 
 3. **Managing Golden Files**:
