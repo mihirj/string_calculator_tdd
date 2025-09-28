@@ -57,7 +57,7 @@ class _HomePageBodyState extends State<HomePageBody> {
           children: [
             NumberInputTextField(numbersTextController: numbersTextController),
             const SizedBox(height: 24),
-            ResultCard(),
+            const ResultCard(),
             const Spacer(),
             SizedBox(
               width: double.infinity,
