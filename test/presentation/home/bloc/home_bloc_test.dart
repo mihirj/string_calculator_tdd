@@ -95,5 +95,19 @@ void main() {
         ),
       ],
     );
+
+    blocTest<HomeBloc, HomeState>(
+      'empty string input should returns 0',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: ""));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 0)],
+    );
   });
 }
