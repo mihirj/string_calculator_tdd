@@ -10,6 +10,12 @@ Engine • hash feee8ee8fb8b975dd9990f86d3bda11e6e75faf3 (revision c298091351) (
 Tools • Dart 3.9.2 • DevTools 2.48.0
 ```
 
+## Project Structure
+
+- `lib/` - Main source code
+- `test/` - Test cases (unit, golden)
+- `integration_test/` - Integration tests with Patrol
+
 ## Unit Tests
 
 Unit tests for calculator business logic. This test covers various scenarios including:
@@ -82,11 +88,16 @@ patrol test -t integration_test/presentation/home/home_page_test.dart
 
 For more information on Patrol, visit the [Patrol Documentation](https://patrol.leancode.co/documentation).
 
-## Project Structure
+## Test Coverage
 
-- `lib/` - Main source code
-- `test/` - Test cases (unit, golden)
-- `integration_test/` - Integration tests with Patrol
+This project aims for high test coverage across all components. To generate and view test coverage:
+
+```bash
+flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
+```
+
+Open `coverage/html/index.html` in a web browser to view the coverage report.
 
 ## Additional Resources
 
