@@ -18,9 +18,9 @@ class HomeState extends Equatable {
   }
 
   @visibleForTesting
-  const HomeState.test({int? calculatorResult})
+  const HomeState.test({int? calculatorResult, String? errorMessage})
     : calculatorResult = calculatorResult ?? 0,
-      errorMessage = '';
+      errorMessage = errorMessage ?? '';
 
   @override
   List<Object> get props => [calculatorResult, errorMessage];

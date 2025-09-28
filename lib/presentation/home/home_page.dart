@@ -40,6 +40,10 @@ class _HomePageBodyState extends State<HomePageBody> {
     final calculatorResult = context.select(
       (HomeBloc bloc) => bloc.state.calculatorResult,
     );
+
+    final errorMessage = context.select(
+      (HomeBloc bloc) => bloc.state.errorMessage,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -73,6 +77,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   borderSide: BorderSide(color: Colors.blue.shade400, width: 2),
                 ),
                 hintText: 'Enter numbers here',
+                errorText: errorMessage.isNotEmpty ? errorMessage : null,
               ),
               keyboardType: TextInputType.text,
             ),
