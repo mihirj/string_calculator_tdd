@@ -57,5 +57,43 @@ void main() {
       // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 3)],
     );
+
+    blocTest<HomeBloc, HomeState>(
+      'negative numbers error test',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "-1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1',
+        ),
+      ],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'multiple negative numbers error test',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "-1,-2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1, -2',
+        ),
+      ],
+    );
   });
 }
