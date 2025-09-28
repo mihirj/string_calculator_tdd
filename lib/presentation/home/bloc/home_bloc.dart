@@ -11,12 +11,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _setupEventListener() {
-    on<CalculateSumEvent>(_onCalculateSumEvent);
+    on<AddEvent>(_onAddEvent);
   }
 
-  void _onCalculateSumEvent(CalculateSumEvent event, Emitter<HomeState> emit) {
-    final numbers = event.input.split(',').map(int.parse).toList();
+  void _onAddEvent(AddEvent event, Emitter<HomeState> emit) {
+    final regex = RegExp(r'-?\d+');
+
+    final numbers = regex
+        .allMatches(event.input)
+        .map((match) => int.parse(match.group(0)!))
+        .toList();
+
     final sum = numbers.fold(0, (prev, element) => prev + element);
+
     emit(state.copyWith(calculatorResult: sum));
   }
 }

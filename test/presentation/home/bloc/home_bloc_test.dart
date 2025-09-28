@@ -10,7 +10,7 @@ void main() {
       build: () => HomeBloc(),
       // act
       act: (bloc) {
-        bloc.add(CalculateSumEvent(input: "1,1"));
+        bloc.add(AddEvent(input: "1,1"));
       },
       // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 2)],
@@ -23,7 +23,7 @@ void main() {
 
       // act
       act: (bloc) {
-        bloc.add(CalculateSumEvent(input: "1;1;2"));
+        bloc.add(AddEvent(input: "1;1;2"));
       },
 
       // assert
@@ -37,7 +37,7 @@ void main() {
 
       // act
       act: (bloc) {
-        bloc.add(CalculateSumEvent(input: "1\n1,2"));
+        bloc.add(AddEvent(input: "1\n1,2"));
       },
 
       // assert
@@ -51,7 +51,7 @@ void main() {
 
       // act
       act: (bloc) {
-        bloc.add(CalculateSumEvent(input: "//;\n1;2"));
+        bloc.add(AddEvent(input: "//;\n1;2"));
       },
 
       // assert

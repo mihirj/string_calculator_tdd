@@ -132,9 +132,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               child: ElevatedButton(
                 onPressed: () {
                   final input = numbersTextController.text;
-                  context.read<HomeBloc>().add(
-                    CalculateSumEvent(input: input.trim()),
-                  );
+                  context.read<HomeBloc>().add(AddEvent(input: input.trim()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade600,
