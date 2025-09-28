@@ -11,12 +11,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _setupEventListener() {
-    on<CalculateSumEvent>(_onCalculateSumEvent);
+    on<AddEvent>(_onAddEvent);
   }
 
-  void _onCalculateSumEvent(CalculateSumEvent event, Emitter<HomeState> emit) {
-    final numbers = event.input.split(',').map(int.parse).toList();
+  void _onAddEvent(AddEvent event, Emitter<HomeState> emit) {
+    final regex = RegExp(r'-?\d+');
+
+    final numbers = regex
+        .allMatches(event.input)
+        .map((match) => int.parse(match.group(0)!))
+        .toList();
+
+    if (numbers.any((number) => number < 0)) {
+      final negativeNumbers = numbers.where((number) => number < 0).toList();
+      emit(
+        state.copyWith(
+          calculatorResult: 0,
+          errorMessage:
+              'Negative numbers not allowed: ${negativeNumbers.join(', ')}',
+        ),
+      );
+      return;
+    }
+
     final sum = numbers.fold(0, (prev, element) => prev + element);
-    emit(state.copyWith(calculatorResult: sum));
+
+    emit(state.copyWith(calculatorResult: sum, errorMessage: ''));
   }
 }

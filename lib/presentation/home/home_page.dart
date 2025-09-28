@@ -40,6 +40,10 @@ class _HomePageBodyState extends State<HomePageBody> {
     final calculatorResult = context.select(
       (HomeBloc bloc) => bloc.state.calculatorResult,
     );
+
+    final errorMessage = context.select(
+      (HomeBloc bloc) => bloc.state.errorMessage,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -73,6 +77,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   borderSide: BorderSide(color: Colors.blue.shade400, width: 2),
                 ),
                 hintText: 'Enter numbers here',
+                errorText: errorMessage.isNotEmpty ? errorMessage : null,
               ),
               keyboardType: TextInputType.text,
             ),
@@ -132,9 +137,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               child: ElevatedButton(
                 onPressed: () {
                   final input = numbersTextController.text;
-                  context.read<HomeBloc>().add(
-                    CalculateSumEvent(input: input.trim()),
-                  );
+                  context.read<HomeBloc>().add(AddEvent(input: input.trim()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade600,

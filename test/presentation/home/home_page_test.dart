@@ -111,18 +111,43 @@ void main() {
       'Home page UI test',
       fileName: 'home_page',
       builder: () {
-        //arrange
+        // arrange
         final homeBloc = MockHomeBloc();
         when(() => homeBloc.state).thenReturn(HomeState.test());
+
+        final homeBlocWithAddEventResult = MockHomeBloc();
+        when(
+          () => homeBlocWithAddEventResult.state,
+        ).thenReturn(HomeState.test(calculatorResult: 14));
+
+        final homeBlocWithError = MockHomeBloc();
+        when(() => homeBlocWithError.state).thenReturn(
+          HomeState.test(errorMessage: 'Negative numbers not allowed: -1'),
+        );
 
         // act, assert
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
           children: [
             createTestScenario(
-              name: 'home_screen',
+              name: 'home page with initial state',
               providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
-              child: const HomePage(),
+              child: const HomePageBody(),
+            ),
+
+            createTestScenario(
+              name: 'home page with result in add event',
+              providers: [
+                BlocProvider<HomeBloc>.value(value: homeBlocWithAddEventResult),
+              ],
+              child: const HomePageBody(),
+            ),
+            createTestScenario(
+              name: 'home page with error in add event',
+              providers: [
+                BlocProvider<HomeBloc>.value(value: homeBlocWithError),
+              ],
+              child: const HomePageBody(),
             ),
           ],
         );

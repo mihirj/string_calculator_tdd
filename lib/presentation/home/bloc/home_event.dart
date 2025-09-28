@@ -4,10 +4,10 @@ abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class CalculateSumEvent extends HomeEvent {
+class AddEvent extends HomeEvent {
   final String input;
 
-  const CalculateSumEvent({required this.input});
+  const AddEvent({required this.input});
 
   @override
   List<Object> get props => [input];

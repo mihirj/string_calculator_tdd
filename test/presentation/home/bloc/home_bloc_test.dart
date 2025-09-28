@@ -10,10 +10,125 @@ void main() {
       build: () => HomeBloc(),
       // act
       act: (bloc) {
-        bloc.add(CalculateSumEvent(input: "1,1"));
+        bloc.add(AddEvent(input: "1,1"));
       },
       // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 2)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with ";" as a delimiter',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "1;1;2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 4)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with "/n" escape character',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "1\n1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 4)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with custom delimiter format "//delimiter\\nX;Y"',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "//;\n1;2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 3)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'negative numbers error test',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "-1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1',
+        ),
+      ],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'sequence of test with valid and invalid inputs',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "3,4"));
+        bloc.add(AddEvent(input: "-1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(calculatorResult: 7, errorMessage: ''),
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1',
+        ),
+      ],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'multiple negative numbers error test',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "-1,-2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[
+        HomeState(
+          calculatorResult: 0,
+          errorMessage: 'Negative numbers not allowed: -1, -2',
+        ),
+      ],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'empty string input should returns 0',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: ""));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 0)],
     );
   });
 }
