@@ -130,5 +130,19 @@ void main() {
       // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 0)],
     );
+
+    blocTest<HomeBloc, HomeState>(
+      'numbers greater than 1000 should be ignored',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(AddEvent(input: "2,1001,3"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 5)],
+    );
   });
 }

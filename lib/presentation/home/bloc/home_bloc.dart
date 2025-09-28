@@ -20,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final numbers = regex
         .allMatches(event.input)
         .map((match) => int.parse(match.group(0)!))
+        .where((number) => number <= 1000)
         .toList();
 
     if (numbers.any((number) => number < 0)) {
