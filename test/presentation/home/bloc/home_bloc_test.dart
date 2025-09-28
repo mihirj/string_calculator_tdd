@@ -15,5 +15,47 @@ void main() {
       // assert
       expect: () => <HomeState>[HomeState(calculatorResult: 2)],
     );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with ";" as a delimiter',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(CalculateSumEvent(input: "1;1;2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 4)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with "/n" escape character',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(CalculateSumEvent(input: "1\n1,2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 4)],
+    );
+
+    blocTest<HomeBloc, HomeState>(
+      'calculate sum event with custom delimiter format "//delimiter\\nX;Y"',
+      // arrange
+      build: () => HomeBloc(),
+
+      // act
+      act: (bloc) {
+        bloc.add(CalculateSumEvent(input: "//;\n1;2"));
+      },
+
+      // assert
+      expect: () => <HomeState>[HomeState(calculatorResult: 3)],
+    );
   });
 }
