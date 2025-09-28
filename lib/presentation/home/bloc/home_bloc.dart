@@ -26,6 +26,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final negativeNumbers = numbers.where((number) => number < 0).toList();
       emit(
         state.copyWith(
+          calculatorResult: 0,
           errorMessage:
               'Negative numbers not allowed: ${negativeNumbers.join(', ')}',
         ),
