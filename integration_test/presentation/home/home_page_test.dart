@@ -33,7 +33,7 @@ void main() {
 
     // Basic test to check Add function with negative number
     await $(find.byType(TextField)).enterText('1,-2,3');
-    // await $.pumpAndSettle();
+    await $.pumpAndSettle();
     await $(find.text('Calculate Sum')).tap();
     await $.pumpAndSettle();
     expect(find.text('0'), findsOneWidget);
