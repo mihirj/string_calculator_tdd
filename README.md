@@ -1,6 +1,6 @@
 # String calculator TDD
 
-This project converts string input into numbers and performs addition. It supports custom delimiters, handles negative numbers. The main goal of this project is to demonstrates Test-Driven Development (TDD) principles using Flutter. It includes unit tests, golden tests with Alchemist, and integration tests with Patrol.
+This project converts string input into numbers and performs addition. It supports custom delimiters and handles negative numbers. The main goal of this project is to demonstrate Test-Driven Development (TDD) principles using Flutter. It includes unit tests, golden tests with Alchemist, and integration tests with Patrol.
 
 ## Flutter version
 ```
@@ -52,9 +52,9 @@ visual changes during development.
 
 2. **Running Tests**:
    ```bash
-   flutter test --update-goldens test/golden_test.dart  # Update golden files
-   flutter test test/golden_test.dart                   # Run tests against existing golden files
-   flutter test                                         # Run all tests at once
+flutter test --update-goldens test/golden_test.dart  # Update golden files
+flutter test test/golden_test.dart                   # Run single test
+flutter test                                         # Run all tests
    ```
 
 3. **Managing Golden Files**:
@@ -70,14 +70,14 @@ Patrol is used for end-to-end testing of critical user flows. It simulates real 
 ### Running Patrol Tests
 - Make sure to install Patrol CLI first:
 ```bash
-  dart pub global activate patrol_cli
+dart pub global activate patrol_cli
   ```
 
 - Open up an iOS simulator or Android emulator.
 - Run the following command to execute the integration tests:
 
 ```bash
- patrol test -t integration_test/presentation/home/home_page_test.dart
+patrol test -t integration_test/presentation/home/home_page_test.dart
 ```
 
 For more information on Patrol, visit the [Patrol Documentation](https://patrol.leancode.co/documentation).
