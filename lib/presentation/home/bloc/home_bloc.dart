@@ -35,6 +35,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final sum = numbers.fold(0, (prev, element) => prev + element);
 
-    emit(state.copyWith(calculatorResult: sum));
+    emit(state.copyWith(calculatorResult: sum, errorMessage: ''));
   }
 }
